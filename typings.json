@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "blue-tape": "registry:npm/blue-tape#0.2.0+20160623043621"
+  },
+  "globalDependencies": {
+    "jsbn": "registry:dt/jsbn#1.2.0+20160317120654"
   }
 }
