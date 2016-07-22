@@ -1,4 +1,4 @@
-# Typed Ip Address  [![Build Status](https://travis-ci.org/westonpace/typed-ip-address.svg?branch=master)](https://travis-ci.org/westonpace/typed-ip-address)
+1;2802;0c# Typed Ip Address  [![Build Status](https://travis-ci.org/westonpace/typed-ip-address.svg?branch=master)](https://travis-ci.org/westonpace/typed-ip-address)
 
 
 The type definition for [`ip-address`](https://github.com/beaugunderson/ip-address)
@@ -6,6 +6,15 @@ The type definition for [`ip-address`](https://github.com/beaugunderson/ip-addre
 ## LICENSE
 
 MIT
+
+## Caveats
+
+`ip-address` depends on [`jsbn`](https://www.npmjs.com/package/jsbn) for `BigInteger` support.  The types for `jsbn` are only available as global/ambient types and so cannot be included directly as a dependency.  This means that, to use these typings, you will need to run the following...
+
+```
+typings install --save ip-address
+typings install --save --global dt~jsbn
+```
 
 ## Contributing
 
