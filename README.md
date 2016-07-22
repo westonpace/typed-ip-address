@@ -1,7 +1,7 @@
 # Typed Ip Address  [![Build Status](https://travis-ci.org/westonpace/typed-ip-address.svg?branch=master)](https://travis-ci.org/westonpace/typed-ip-address)
 
 
-The type definition for [ip-address](git://github.com/beaugunderson/ip-address.git)
+The type definition for [`ip-address`](https://github.com/beaugunderson/ip-address)
 
 ## LICENSE
 
