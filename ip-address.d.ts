@@ -110,6 +110,11 @@ declare namespace ipAddress {
     regularExpression(substring?:string):RegExp;
     regularExpressionString(substring?:string):string;
     reverseForm(options?:ReverseOptions):string;
+    to4():Address4;
+    to4in6():string;
+    to6to4():Address6;
+    toByteArray():Array<number>;
+    toUnsignedByteArray():Array<number>;
   }
 
 }

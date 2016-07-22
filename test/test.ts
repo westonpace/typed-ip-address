@@ -3,7 +3,7 @@ import test = require('blue-tape');
 import ipAddress = require('ip-address');
 
 test('IPv4 valid address', (t) => {
-  var addr = new ipAddress.Address4('10.10.10.0/24');
+  let addr = new ipAddress.Address4('10.10.10.0/24');
   t.plan(26);
   t.equal(addr.address, '10.10.10.0/24');
   t.equal(addr.subnet, '/24');
@@ -15,7 +15,7 @@ test('IPv4 valid address', (t) => {
   t.equal(addr.groups, 4);
   t.equal(addr.v4, true);
 
-  var bigInt = addr.bigInteger();
+  let bigInt = addr.bigInteger();
   t.equal(bigInt.toString(), '168430080');
   t.equal(addr.binaryZeroPad(), '00001010000010100000101000000000');
   t.equal(addr.correctForm(), '10.10.10.0');
@@ -25,8 +25,8 @@ test('IPv4 valid address', (t) => {
   t.equal(addr.isCorrect(), true);
   t.equal(addr.isValid(), true);
   t.equal(new ipAddress.Address4('10.10.10.4').isInSubnet(addr), true);
-  t.equal(addr.mask(), '000010100000101000001010')
-  t.equal(addr.mask(3), '000')
+  t.equal(addr.mask(), '000010100000101000001010');
+  t.equal(addr.mask(3), '000');
   t.deepEqual(addr.toArray(), [10, 10, 10, 0]);
   t.equal(addr.toGroup6(), 'a0a:a00');
   t.equal(addr.toHex(), '0a:0a:0a:00');
@@ -37,16 +37,16 @@ test('IPv4 valid address', (t) => {
 
 test('IPv4 invalid address', (t) => {
   t.plan(2);
-  var addr = new ipAddress.Address4('10.10.10/24');
+  let addr = new ipAddress.Address4('10.10.10/24');
   t.ok(addr.error);
   t.ok(addr.error.length > 0);
 });
 
 test('IPv6 valid address', (t) => {
-  t.plan(49);
-  var addr = new ipAddress.Address6('fe80::%10');
-  var subnet = new ipAddress.Address6('fe80::/120');
-  var bigInt = addr.bigInteger();
+  t.plan(54);
+  let addr = new ipAddress.Address6('fe80::%10');
+  let subnet = new ipAddress.Address6('fe80::/120');
+  let bigInt = addr.bigInteger();
   t.equal(addr.address, 'fe80::%10');
   t.equal(addr.elidedGroups, 7);
   t.equal(addr.elisionBegin, 1);
@@ -60,7 +60,7 @@ test('IPv6 valid address', (t) => {
   t.equal(addr.getBits(3, 5).toString(), '3');
   t.equal(addr.getScope(), 'Reserved');
   t.equal(addr.getType(), 'Link-local unicast');
-  var sixToFour = addr.inspect6to4();
+  let sixToFour = addr.inspect6to4();
   t.equal(sixToFour.prefix, 'fe80');
   t.equal(sixToFour.gateway, '0.0.0.0');
   t.equal(new ipAddress.Address6('fe80::/120').getBitsPastSubnet(), '00000000');
@@ -71,7 +71,7 @@ test('IPv6 valid address', (t) => {
   t.equal(ipAddress.Address6.fromByteArray(addr.toByteArray()).valid, true);
   t.equal(ipAddress.Address6.fromUnsignedByteArray(addr.toUnsignedByteArray()).valid, true);
   t.equal(ipAddress.Address6.fromURL('http://[ffff::]:8080/foo/').port, 8080);
-  var teredo = addr.inspectTeredo();
+  let teredo = addr.inspectTeredo();
   t.equal(teredo.prefix, 'fe80:0000');
   t.equal(teredo.server4, '0.0.0.0');
   t.equal(teredo.client4, '255.255.255.255');
@@ -97,5 +97,11 @@ test('IPv6 valid address', (t) => {
   t.equal(subnet.regularExpressionString().length > 50, true);
   t.equal(subnet.regularExpressionString('f').length > 50, true);
   t.equal(subnet.reverseForm(), '0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f.ip6.arpa.');
-  t.equal(subnet.reverseForm({omitSuffix:true}), '0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f')
+  t.equal(subnet.reverseForm({omitSuffix:true}), '0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f');
+  t.equal(subnet.to4().valid, true);
+  t.equal(subnet.to4in6(), 'fe80::0.0.0.0');
+  // TODO: Find working example of this
+  t.equal(subnet.to6to4(), null);
+  t.deepEqual(subnet.toByteArray(), [0, -2, -128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  t.deepEqual(subnet.toUnsignedByteArray(), [0, 254, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 });
