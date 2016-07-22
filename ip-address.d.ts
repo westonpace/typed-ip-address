@@ -114,5 +114,3 @@ export class Address6 extends Address {
   toByteArray():Array<number>;
   toUnsignedByteArray():Array<number>;
 }
-
-export default {};
