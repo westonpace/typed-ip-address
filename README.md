@@ -1,4 +1,4 @@
-1;2802;0c# Typed Ip Address  [![Build Status](https://travis-ci.org/westonpace/typed-ip-address.svg?branch=master)](https://travis-ci.org/westonpace/typed-ip-address)
+Typed Ip Address  [![Build Status](https://travis-ci.org/westonpace/typed-ip-address.svg?branch=master)](https://travis-ci.org/westonpace/typed-ip-address)
 
 
 The type definition for [`ip-address`](https://github.com/beaugunderson/ip-address)
