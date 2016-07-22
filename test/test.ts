@@ -43,8 +43,9 @@ test('IPv4 invalid address', (t) => {
 });
 
 test('IPv6 valid address', (t) => {
-  t.plan(33);
+  t.plan(49);
   var addr = new ipAddress.Address6('fe80::%10');
+  var subnet = new ipAddress.Address6('fe80::/120');
   var bigInt = addr.bigInteger();
   t.equal(addr.address, 'fe80::%10');
   t.equal(addr.elidedGroups, 7);
@@ -81,4 +82,20 @@ test('IPv6 valid address', (t) => {
   t.equal(teredo.microsoft.universalLocal, false);
   t.equal(teredo.microsoft.groupIndividual, false);
   t.equal(teredo.microsoft.nonce, '0');
+  t.equal(addr.is4(), false);
+  t.equal(addr.is6to4(), false);
+  t.equal(addr.isCanonical(), false);
+  t.equal(addr.isLinkLocal(), true);
+  t.equal(addr.isLoopback(), false);
+  t.equal(addr.isMulticast(), false);
+  t.equal(addr.isTeredo(), false);
+  t.equal(addr.microsoftTranscription(), 'fe80--.ipv6-literal.net');
+  t.equal(subnet.possibleSubnets(), '256');
+  t.equal(subnet.possibleSubnets(124), '16');
+  t.equal(subnet.regularExpression().source.length > 50, true);
+  t.equal(subnet.regularExpression('f').source.length > 50, true);
+  t.equal(subnet.regularExpressionString().length > 50, true);
+  t.equal(subnet.regularExpressionString('f').length > 50, true);
+  t.equal(subnet.reverseForm(), '0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f.ip6.arpa.');
+  t.equal(subnet.reverseForm({omitSuffix:true}), '0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f')
 });

@@ -22,6 +22,10 @@ declare namespace ipAddress {
     microsoft: TeredoMicrosoft;
   }
 
+  class ReverseOptions {
+    omitSuffix:boolean;
+  }
+
   class Address {
 
     address:string;
@@ -94,7 +98,18 @@ declare namespace ipAddress {
     getType():string;
     inspect6to4():SixToFour;
     inspectTeredo():Teredo;
-
+    is4():boolean;
+    is6to4():boolean;
+    isCanonical():boolean;
+    isLinkLocal():boolean;
+    isLoopback():boolean;
+    isMulticast():boolean;
+    isTeredo():boolean;
+    microsoftTranscription():string;
+    possibleSubnets(subnetSize?:number):RegExp;
+    regularExpression(substring?:string):RegExp;
+    regularExpressionString(substring?:string):string;
+    reverseForm(options?:ReverseOptions):string;
   }
 
 }
